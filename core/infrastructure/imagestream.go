@@ -16,6 +16,7 @@ package infrastructure
 
 import (
 	"fmt"
+
 	"github.com/kiegroup/kogito-operator/core/client/kubernetes"
 	"github.com/kiegroup/kogito-operator/core/client/openshift"
 	"github.com/kiegroup/kogito-operator/core/operator"
@@ -116,6 +117,8 @@ func (i *imageStreamHandler) CreateImageStreamIfNotExists(key types.NamespacedNa
 		tagReference := i.createImageStreamTag(tag, addFromReference, imageName, insecureImageRegistry)
 		tagReferences := append(imageStream.Spec.Tags, tagReference)
 		imageStream.Spec.Tags = tagReferences
+	} else if i.getTag(imageStream, tag).From.Name != imageName {
+		i.getTag(imageStream, tag).From.Name = imageName
 	}
 	return imageStream, nil
 }
@@ -145,6 +148,17 @@ func (i *imageStreamHandler) checkIfTagExists(imageStream *imgv1.ImageStream, ta
 	}
 	i.Log.Debug("tag not exists in image stream", "tag", tag)
 	return false
+}
+
+func (i *imageStreamHandler) getTag(imageStream *imgv1.ImageStream, tag string) *imgv1.TagReference {
+	i.Log.Debug("Checking if tag exists in image stream", "tag", tag)
+	for _, existingTag := range imageStream.Spec.Tags {
+		if existingTag.Name == tag {
+			return &existingTag
+		}
+	}
+	i.Log.Debug("tag not exists in image stream", "tag", tag)
+	return nil
 }
 
 // Adds a docker image in the "From" reference based on the given image if `addFromReference` is set to `true`
