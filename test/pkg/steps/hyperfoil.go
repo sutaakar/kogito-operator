@@ -158,6 +158,10 @@ func getHyperfoilDefaultResource(name, namespace string) *hyperfoilv1alpha2.Hype
 		hyperfoil.Spec.PostHooks = append(hyperfoil.Spec.PostHooks, installers.NodeScraperStopConfigMapName)
 	}
 
+	if imageVersion := config.GetHyperfoilControllerImageVersion(); len(imageVersion) > 0 {
+		hyperfoil.Spec.Version = imageVersion
+	}
+
 	return hyperfoil
 }
 
