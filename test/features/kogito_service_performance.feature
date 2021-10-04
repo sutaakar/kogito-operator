@@ -29,7 +29,7 @@ Feature: Kogito Service Performance
       - driver02
       http:
         host: http://process-quarkus-example:80
-        sharedConnections: 30
+        sharedConnections: 60
       phases:
       - steadyState:
           constantRate:
@@ -115,7 +115,7 @@ Feature: Kogito Service Performance
       - driver02
       http:
         host: http://process-quarkus-example:80
-        sharedConnections: 30
+        sharedConnections: 60
       phases:
       - steadyState:
           constantRate:
@@ -184,7 +184,7 @@ Feature: Kogito Service Performance
       - driver02
       http:
         host: http://process-quarkus-example:80
-        sharedConnections: 30
+        sharedConnections: 60
       phases:
       - steadyState:
           constantRate:
@@ -279,7 +279,7 @@ Feature: Kogito Service Performance
       - driver02
       http:
         host: http://process-quarkus-example:80
-        sharedConnections: 30
+        sharedConnections: 60
       phases:
       - steadyState:
           constantRate:
@@ -339,7 +339,7 @@ Feature: Kogito Service Performance
       - driver02
       http:
         host: http://process-springboot-example:80
-        sharedConnections: 30
+        sharedConnections: 60
       phases:
       - steadyState:
           constantRate:
@@ -431,7 +431,7 @@ Feature: Kogito Service Performance
       - driver02
       http:
         host: http://process-springboot-example:80
-        sharedConnections: 30
+        sharedConnections: 60
       phases:
       - steadyState:
           constantRate:
